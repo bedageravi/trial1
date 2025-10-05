@@ -1,10 +1,15 @@
-name: Trial Run planet.py - 3 Cycles
+name: Planet.py Trial - 6 Cycles 5min Interval
 
 on:
   workflow_dispatch:   # manual run option
   schedule:
-    # 7:18 PM IST = 13:48 UTC
-    - cron: "48 13 * * *"
+    # 7:45 PM IST = 14:15 UTC
+    - cron: "15 14 * * *"  # Cycle 1
+    - cron: "20 14 * * *"  # Cycle 2
+    - cron: "25 14 * * *"  # Cycle 3
+    - cron: "30 14 * * *"  # Cycle 4
+    - cron: "35 14 * * *"  # Cycle 5
+    - cron: "40 14 * * *"  # Cycle 6
 
 jobs:
   run_script:
@@ -23,17 +28,5 @@ jobs:
         run: |
           if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
 
-      - name: Run planet.py 3 cycles
-        run: |
-          for i in 1 2 3
-          do
-            echo "----------------------------------------"
-            echo "Cycle $i started at $(date)"
-            python planet.py
-            echo "Cycle $i finished at $(date)"
-            if [ $i -lt 3 ]; then
-              echo "Waiting 5 minutes before next cycle..."
-              sleep 300
-            fi
-          done
-          echo "All 3 cycles completed!"
+      - name: Run planet.py
+        run: python planet.py
