@@ -1,14 +1,15 @@
-name: Auto Trial Run planet.py
+name: Trial Run planet.py - 3 Cycles
 
 on:
+  workflow_dispatch:   # manual run option
   schedule:
-    # 6:58 PM IST = 13:28 UTC
-    - cron: "28 13 * * *"
-  workflow_dispatch:   # allows manual run anytime
+    # 7:18 PM IST = 13:48 UTC
+    - cron: "48 13 * * *"
 
 jobs:
   run_script:
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
@@ -22,5 +23,17 @@ jobs:
         run: |
           if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
 
-      - name: Run planet.py
-        run: python planet.py
+      - name: Run planet.py 3 cycles
+        run: |
+          for i in 1 2 3
+          do
+            echo "----------------------------------------"
+            echo "Cycle $i started at $(date)"
+            python planet.py
+            echo "Cycle $i finished at $(date)"
+            if [ $i -lt 3 ]; then
+              echo "Waiting 5 minutes before next cycle..."
+              sleep 300
+            fi
+          done
+          echo "All 3 cycles completed!"
