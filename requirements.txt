@@ -1,2 +1,2 @@
-swisseph
+pyswisseph
 requests
