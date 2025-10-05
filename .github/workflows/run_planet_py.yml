@@ -1,0 +1,23 @@
+name: Run planet.py
+
+on:
+  workflow_dispatch:  # Allows manual run from the GitHub Actions tab
+
+jobs:
+  run_script:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.x'
+
+      - name: Install dependencies
+        run: |
+          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+
+      - name: Run planet.py
+        run: python planet.py
