@@ -1,15 +1,10 @@
-name: Trial Run planet.py
+name: Auto Trial Run planet.py
 
 on:
-  workflow_dispatch:   # manual run option
   schedule:
-    # Trial run at 6:45 PM IST (13:15 UTC) + every 5 minutes, 6 cycles
-    - cron: "15 13 * * *"
-    - cron: "20 13 * * *"
-    - cron: "25 13 * * *"
-    - cron: "30 13 * * *"
-    - cron: "35 13 * * *"
-    - cron: "40 13 * * *"
+    # 6:58 PM IST = 13:28 UTC
+    - cron: "28 13 * * *"
+  workflow_dispatch:   # allows manual run anytime
 
 jobs:
   run_script:
