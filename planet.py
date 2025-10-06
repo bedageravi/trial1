@@ -1,10 +1,10 @@
 import swisseph as swe
 from datetime import datetime
 import requests
+import os
 
-# --- Telegram Bot Config ---
-BOT_TOKEN = '7718468355:AAEQc0dSgLjTYVWGrmPRZAY0VshGXxsJCFU'  # 🔁 Replace with your bot token
-CHAT_ID = '-4716730270'      # 🔁 Replace with your Telegram chat ID
+BOT_TOKEN = os.environ.get("TELEGRAM_TOKEN")
+CHAT_ID = os.environ.get("TELEGRAM_CHAT_ID")
 
 # --- Swiss Ephemeris Setup ---
 swe.set_ephe_path('.')  # If eph files are in current directory
@@ -78,4 +78,5 @@ def send_to_telegram(message):
 
 # --- Run Script ---
 msg = get_planet_positions()
+
 send_to_telegram(msg)
